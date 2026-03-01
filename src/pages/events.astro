@@ -1,46 +1,33 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import { SectionHeading } from '@components/ui/section-heading'
-import { CometCard } from '@components/ui/comet-card'
-import { SpotlightNew } from '@components/ui/spotlight'
+import { BackgroundBeams } from '@components/ui/background-beams'
+import { EventTagFilter } from '@components/ui/event-tag-filter'
 import { getCollection } from 'astro:content'
 
 // Fetch all events from the collection
 const allEvents = await getCollection('events')
-const now = new Date()
 
-// Split into upcoming and past events
-const upcomingEvents = allEvents
-  .filter((event) => new Date(event.data.eventDate) >= now)
-  .sort((a, b) => new Date(a.data.eventDate).getTime() - new Date(b.data.eventDate).getTime())
+// Extract unique tags
+const allTags = [...new Set(allEvents.flatMap(e => e.data.tags || []))]
 
-const pastEvents = allEvents
-  .filter((event) => new Date(event.data.eventDate) < now)
-  .sort((a, b) => new Date(b.data.eventDate).getTime() - new Date(a.data.eventDate).getTime())
-
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString("en-AU", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
-
-const formatTime = (date: Date) => {
-  return date.toLocaleTimeString("en-AU", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-};
+// Serialize events for the React component
+const serializedEvents = allEvents.map((event) => ({
+  title: event.data.title,
+  description: event.data.description,
+  eventDate: event.data.eventDate.toISOString(),
+  endDate: event.data.endDate?.toISOString(),
+  location: event.data.location,
+  tags: event.data.tags,
+  registrationUrl: event.data.registrationUrl,
+  slug: event.data.slug,
+}))
 ---
 
 <DefaultLayout title="Events">
-  <!-- Hero Section -->
+  <!-- Hero Section with Background Beams -->
   <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden section-themed">
     <div class="absolute inset-0 bg-gradient-to-b from-orange-900/20 via-transparent to-transparent"></div>
-    <SpotlightNew className="-top-40 left-0 md:left-60 md:-top-20" fill="#f97316" client:load />
+    <BackgroundBeams className="opacity-40" client:load />
     <div class="absolute inset-0 bg-grid-pattern"></div>
 
     <div class="relative z-10 container mx-auto px-4 py-20 text-center">
@@ -61,128 +48,39 @@ const formatTime = (date: Date) => {
     </div>
   </section>
 
-  <!-- Upcoming Events -->
+  <!-- Events with Tag Filtering -->
   <section class="py-24 section-themed">
     <div class="container mx-auto px-4">
-      <SectionHeading
-        title="Upcoming Events"
-        subtitle="Don't miss out on these exciting opportunities"
-        client:visible
-      />
-
-      {upcomingEvents.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          {upcomingEvents.map((event) => (
-            <CometCard className="h-full" client:visible>
-              <div class="flex flex-col h-full">
-                <div class="flex items-center gap-2 mb-2">
-                  {event.data.tags?.slice(0, 2).map((tag) => (
-                    <span class="text-xs font-semibold text-orange-400 uppercase tracking-wider px-2 py-1 bg-orange-500/10 rounded">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">{event.data.title}</h3>
-                <div class="text-gray-400 text-sm mb-4 space-y-1">
-                  <p>📅 {formatDate(event.data.eventDate)}</p>
-                  <p>🕐 {formatTime(event.data.eventDate)}{event.data.endDate && ` - ${formatTime(event.data.endDate)}`}</p>
-                  <p>📍 {event.data.location}</p>
-                </div>
-                <p class="text-gray-300 mb-6 flex-grow line-clamp-3">{event.data.description}</p>
-                <div class="flex gap-3">
-                  <a
-                    href={`/events/${event.data.slug}`}
-                    class="inline-flex items-center justify-center px-4 py-2 rounded-full border border-orange-500/30 text-orange-400 text-sm font-semibold hover:bg-orange-500/10 transition-colors"
-                  >
-                    Learn More
-                  </a>
-                  {event.data.registrationUrl && (
-                    <a
-                      href={event.data.registrationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-orange-600 text-white text-sm font-semibold hover:bg-orange-700 transition-colors"
-                    >
-                      Register Now
-                    </a>
-                  )}
-                </div>
-              </div>
-            </CometCard>
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-12 mt-12">
-          <p class="theme-text-secondary text-lg">No upcoming events at the moment. Check back soon!</p>
-          <p class="theme-text-muted mt-2">Join our Discord to be notified when new events are announced.</p>
-        </div>
-      )}
+      <EventTagFilter events={serializedEvents} tags={allTags} client:load />
     </div>
   </section>
 
-  <!-- Past Events -->
-  <section class="py-24 section-themed-alt border-t theme-border">
-    <div class="container mx-auto px-4">
-      <SectionHeading
-        title="Past Events"
-        subtitle="Highlights from our previous activities"
-        client:visible
-      />
-
-      {pastEvents.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {pastEvents.map((event) => (
-            <a
-              href={`/events/${event.data.slug}`}
-              class="p-6 rounded-xl theme-card border hover:border-orange-500/30 transition-colors group"
-            >
-              <div class="flex items-center gap-2 mb-2">
-                {event.data.tags?.slice(0, 1).map((tag) => (
-                  <span class="text-xs font-semibold theme-text-muted uppercase tracking-wider">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h3 class="text-lg font-bold theme-text mt-2 mb-1 group-hover:text-orange-400 transition-colors">
-                {event.data.title}
-              </h3>
-              <p class="theme-text-muted text-sm mb-2">{formatDate(event.data.eventDate)}</p>
-              <p class="theme-text-secondary text-sm line-clamp-2">{event.data.description}</p>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-12 mt-12">
-          <p class="theme-text-secondary text-lg">No past events to display yet.</p>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- CTA -->
+  <!-- CTA - Glow Ring Discord -->
   <section class="py-24 section-themed">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold theme-text mb-6">
-        Want to stay updated?
-      </h2>
-      <p class="theme-text-secondary max-w-2xl mx-auto mb-8">
-        Join our Discord to get instant notifications about upcoming events and activities.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="https://discord.gg/duca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-colors"
-        >
-          Join Discord
-        </a>
-        <a
-          href="/calendar"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-purple-500 theme-text font-semibold hover:bg-purple-500/10 transition-colors"
-        >
-          View Calendar
-        </a>
+      <div class="max-w-2xl mx-auto p-12 rounded-2xl border-2 border-purple-500/30 animate-pulse-glow bg-gradient-to-br from-purple-900/20 to-black">
+        <h2 class="text-3xl md:text-4xl font-bold theme-text mb-6">
+          Want to stay updated?
+        </h2>
+        <p class="theme-text-secondary max-w-2xl mx-auto mb-8">
+          Join our Discord to get instant notifications about upcoming events and activities.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://discord.gg/duca"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-colors"
+          >
+            Join Discord
+          </a>
+          <a
+            href="/calendar"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-purple-500 theme-text font-semibold hover:bg-purple-500/10 transition-colors"
+          >
+            View Calendar
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -192,4 +90,46 @@ const formatTime = (date: Date) => {
   html {
     scroll-behavior: smooth;
   }
+  /* Easter egg: ACCESS GRANTED flash */
+  .access-granted-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+  }
+  .access-granted-overlay span {
+    font-family: monospace;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #33ff33;
+    text-shadow: 0 0 30px rgba(51, 255, 51, 0.8);
+    animation: ag-pulse 0.5s ease-in-out;
+  }
+  @keyframes ag-pulse {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
 </style>
+
+<script>
+  // Easter Egg: Type "sudo" → ACCESS GRANTED flash
+  document.addEventListener('astro:page-load', () => {
+    let buffer = '';
+    document.addEventListener('keydown', (e) => {
+      buffer += e.key.toLowerCase();
+      if (buffer.length > 10) buffer = buffer.slice(-10);
+      if (buffer.includes('sudo')) {
+        buffer = '';
+        const overlay = document.createElement('div');
+        overlay.className = 'access-granted-overlay';
+        overlay.innerHTML = '<span>ACCESS GRANTED</span>';
+        document.body.appendChild(overlay);
+        setTimeout(() => overlay.remove(), 2000);
+      }
+    });
+  });
+</script>

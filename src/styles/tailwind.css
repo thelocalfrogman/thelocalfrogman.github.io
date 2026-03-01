@@ -207,26 +207,26 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Click Ripple Animation */
-@keyframes click-ripple {
+/* Click Particle Explosion */
+@keyframes particle-fly {
   0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0.6;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    opacity: 0.9;
   }
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0);
     opacity: 0;
   }
 }
 
-.click-effect {
+.click-particle {
   position: fixed;
   pointer-events: none;
-  width: 100px;
-  height: 100px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(214, 72, 255, 0.4) 0%, rgba(124, 58, 237, 0.2) 50%, transparent 70%);
-  animation: click-ripple 0.6s ease-out forwards;
+  background: linear-gradient(135deg, #d648ff, #00d1b7);
+  animation: particle-fly ease-out forwards;
   z-index: 9999;
 }
 
@@ -298,4 +298,51 @@
 .section-themed-alt {
   background-color: var(--theme-section-alt);
   color: var(--theme-text);
+}
+
+/* Logo Hover Bounce Animation */
+@keyframes logo-bounce {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.15) rotate(-5deg); }
+  50% { transform: scale(1.05) rotate(5deg); }
+  75% { transform: scale(1.1) rotate(-3deg); }
+}
+
+.logo-hover-bounce {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.logo-hover-bounce:hover {
+  animation: logo-bounce 0.5s ease;
+}
+
+/* Float Animation for dynamic elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animated Border Glow */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(214, 72, 255, 0.3); box-shadow: 0 0 10px rgba(214, 72, 255, 0.1); }
+  50% { border-color: rgba(0, 209, 183, 0.5); box-shadow: 0 0 20px rgba(0, 209, 183, 0.2); }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* Pulse Glow Ring */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(214, 72, 255, 0.3), 0 0 10px rgba(214, 72, 255, 0.1); }
+  50% { box-shadow: 0 0 15px rgba(214, 72, 255, 0.5), 0 0 30px rgba(214, 72, 255, 0.2); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

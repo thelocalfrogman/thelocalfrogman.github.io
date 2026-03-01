@@ -89,4 +89,26 @@ const executives = [
   html {
     scroll-behavior: smooth;
   }
+  /* Easter egg sunglasses filter */
+  .team-shades img {
+    filter: brightness(0.7) contrast(1.3) hue-rotate(180deg) !important;
+    transition: filter 0.3s ease;
+  }
 </style>
+
+<script>
+  // Easter Egg: Click the DUCA title area 5 times → team photos get funky filter
+  document.addEventListener('astro:page-load', () => {
+    let clicks = 0;
+    const heroArea = document.querySelector('main > :first-child');
+    if (!heroArea) return;
+    heroArea.addEventListener('click', () => {
+      clicks++;
+      if (clicks === 5) {
+        clicks = 0;
+        document.body.classList.add('team-shades');
+        setTimeout(() => document.body.classList.remove('team-shades'), 3000);
+      }
+    });
+  });
+</script>

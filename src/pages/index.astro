@@ -90,4 +90,53 @@ try {
   html {
     scroll-behavior: smooth;
   }
+  /* Matrix rain easter egg overlay */
+  .matrix-rain {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    overflow: hidden;
+  }
 </style>
+
+<script>
+  // Easter Egg: Konami Code → Matrix rain
+  document.addEventListener('astro:page-load', () => {
+    const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let ki = 0;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === konamiCode[ki]) {
+        ki++;
+        if (ki === konamiCode.length) {
+          ki = 0;
+          const c = document.createElement('div');
+          c.className = 'matrix-rain';
+          const cv = document.createElement('canvas');
+          c.appendChild(cv);
+          document.body.appendChild(c);
+          const ctx = cv.getContext('2d');
+          if (!ctx) return;
+          cv.width = window.innerWidth;
+          cv.height = window.innerHeight;
+          const chars = 'DUCACYBER01アイウエオ';
+          const fs = 14;
+          const cols = Math.floor(cv.width / fs);
+          const drops = Array(cols).fill(1);
+          const iv = setInterval(() => {
+            ctx.fillStyle = 'rgba(0,0,0,0.05)';
+            ctx.fillRect(0, 0, cv.width, cv.height);
+            ctx.fillStyle = '#33ff33';
+            ctx.font = fs + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+              ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
+              if (drops[i] * fs > cv.height && Math.random() > 0.975) drops[i] = 0;
+              drops[i]++;
+            }
+          }, 33);
+          setTimeout(() => { clearInterval(iv); c.remove(); }, 5000);
+        }
+      } else { ki = 0; }
+    });
+  });
+</script>
