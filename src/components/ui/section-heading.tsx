@@ -34,7 +34,7 @@ export const SectionHeading = ({
     >
       <h2
         className={cn(
-          "text-3xl md:text-4xl lg:text-5xl font-bold text-white",
+          "text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent",
           titleClassName
         )}
       >

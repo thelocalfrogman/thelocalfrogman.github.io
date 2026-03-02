@@ -18,7 +18,7 @@ export const BlogPreviewSection = ({
   posts: BlogPost[];
 }) => {
   return (
-    <section className="py-24 bg-black relative">
+    <section className="py-24 relative section-themed">
       <div className="container mx-auto px-4">
         <SectionHeading
           title="Latest from our Blog"

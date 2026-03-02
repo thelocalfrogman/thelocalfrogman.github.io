@@ -18,7 +18,7 @@ export const TeamSection = ({
   showFullTeam?: boolean;
 }) => {
   return (
-    <section id="team" className="py-24 bg-black relative">
+    <section id="team" className="py-24 section-themed relative">
       <div className="container mx-auto px-4">
         <SectionHeading
           title="Meet the Team"
@@ -50,7 +50,7 @@ export const DivisionSection = ({
   division: Division;
 }) => {
   return (
-    <section className="py-16 bg-black">
+    <section className="py-16 section-themed">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

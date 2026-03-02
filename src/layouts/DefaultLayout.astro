@@ -59,6 +59,11 @@ const {
     <style lang="scss" is:global>
       @use '../assets/scss/base/mixins' as *;
 
+      // smooth scroll globally
+      html {
+        scroll-behavior: smooth;
+      }
+
       // sticky footer on low content pages
       html,
       body {

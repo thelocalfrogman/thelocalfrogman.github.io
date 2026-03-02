@@ -42,7 +42,7 @@ const testimonials = [
 
 export const TestimonialsSection = () => {
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section className="py-24 section-themed relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">

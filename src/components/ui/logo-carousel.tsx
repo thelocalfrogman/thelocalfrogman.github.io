@@ -61,12 +61,12 @@ export const LogoCarousel = ({
             href={partner.href ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+            className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(214,72,255,0.5)]"
           >
             <img
               src={partner.logo}
               alt={partner.name}
-              className="h-12 w-auto object-contain"
+              className="h-12 w-auto object-contain transition-all duration-300 hover:brightness-125"
             />
           </a>
         ))}
@@ -137,12 +137,12 @@ export const InfiniteLogoCarousel = ({
             href={partner.href ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 px-4"
+            className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(214,72,255,0.5)] px-4"
           >
             <img
               src={partner.logo}
               alt={partner.name}
-              className="h-16 w-auto object-contain"
+              className="h-16 w-auto object-contain transition-all duration-300 hover:brightness-125"
             />
           </a>
         ))}

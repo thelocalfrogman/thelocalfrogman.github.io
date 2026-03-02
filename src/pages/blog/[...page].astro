@@ -182,7 +182,7 @@ const authors = authorsJson as Record<string, Author>
 </style>
 
 <script>
-  // Easter Egg: Click "Blog" heading 3 times → retro mode for 3s
+  // Easter Egg: Click "Blog" heading 3 times → toggle retro mode (persistent)
   document.addEventListener('astro:page-load', () => {
     let clicks = 0;
     const heading = document.querySelector('.blog-hero h1');
@@ -192,8 +192,7 @@ const authors = authorsJson as Record<string, Author>
       clicks++;
       if (clicks >= 3) {
         clicks = 0;
-        document.body.classList.add('retro-mode');
-        setTimeout(() => document.body.classList.remove('retro-mode'), 3000);
+        document.body.classList.toggle('retro-mode');
       }
     });
   });

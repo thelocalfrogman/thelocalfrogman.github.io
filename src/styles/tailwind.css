@@ -5,9 +5,9 @@
 
 /* Dark Mode CSS Variables */
 :root {
-  /* Dark mode colors */
-  --theme-bg: #000000;
-  --theme-bg-secondary: #0f172a;
+  /* Dark-ish mode colors (not pure black) */
+  --theme-bg: #0a0f1a;
+  --theme-bg-secondary: #111827;
   --theme-bg-tertiary: #1e293b;
   --theme-text: #f8fafc;
   --theme-text-secondary: #94a3b8;
@@ -16,15 +16,15 @@
   --theme-border-subtle: #1e293b;
 
   /* Card backgrounds */
-  --theme-card-bg: #0f172a;
+  --theme-card-bg: #111827;
   --theme-card-bg-hover: #1e293b;
 
   /* Section backgrounds for visual variety */
-  --theme-section-alt: #030712;
+  --theme-section-alt: #060b14;
 
   /* Gradient overlays */
-  --theme-gradient-start: rgba(0,0,0,0.9);
-  --theme-gradient-end: rgba(0,0,0,1);
+  --theme-gradient-start: rgba(10,15,26,0.9);
+  --theme-gradient-end: rgba(10,15,26,1);
 
   /* Static colors */
   --white: #fff;

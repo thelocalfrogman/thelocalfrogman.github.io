@@ -1,6 +1,6 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import { HeroHighlight, Highlight } from '@components/ui/hero-highlight'
+import { Highlight } from '@components/ui/hero-highlight'
 import { CardSpotlight } from '@components/ui/card-spotlight'
 import { SectionHeading } from '@components/ui/section-heading'
 import { SpotlightNew } from '@components/ui/spotlight'
@@ -48,8 +48,8 @@ const divisions = [
 
 <DefaultLayout title="Join Us">
   <!-- Hero Section with Group Photo Background -->
-  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-black">
-    <div class="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black"></div>
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden section-themed">
+    <div class="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-transparent to-transparent"></div>
     <SpotlightNew className="-top-40 left-0 md:left-60 md:-top-20" fill="#ec4899" client:load />
     <div class="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
 
@@ -64,11 +64,9 @@ const divisions = [
     </div>
 
     <div class="relative z-10 container mx-auto px-4 py-20 text-center">
-      <HeroHighlight client:load>
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
-          Join <Highlight className="text-white" client:load>DUCA</Highlight>
-        </h1>
-      </HeroHighlight>
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
+        Join <Highlight className="text-white" client:load>DUCA</Highlight>
+      </h1>
       <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
         Become part of Australia's leading student cybersecurity community.
         Whether you're a beginner or expert, there's a place for you here.
@@ -94,8 +92,95 @@ const divisions = [
     </div>
   </section>
 
-  <!-- Discord Section -->
+  <!-- How to Join - Community Info -->
   <section class="py-24 section-themed">
+    <div class="container mx-auto px-4">
+      <SectionHeading
+        title="How to Join"
+        subtitle="Getting involved with DUCA is easy - here's how"
+        client:visible
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div class="relative p-8 rounded-2xl theme-card border theme-border text-center hover:border-pink-500/30 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-pink-400">1</span>
+          </div>
+          <h3 class="text-xl font-bold theme-text mb-3">Sign Up via DUSA</h3>
+          <p class="theme-text-secondary">
+            Register as a DUCA member through the Deakin University Student Association. Membership gives you voting rights and full access to all club activities.
+          </p>
+          <a href="https://dusa.org.au/clubs/duca" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-pink-400 hover:text-pink-300 font-medium transition-colors">
+            Sign up on DUSA &rarr;
+          </a>
+        </div>
+
+        <div class="relative p-8 rounded-2xl theme-card border theme-border text-center hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-purple-400">2</span>
+          </div>
+          <h3 class="text-xl font-bold theme-text mb-3">Join Our Discord</h3>
+          <p class="theme-text-secondary">
+            Our Discord is where the community lives. Get event notifications, chat with members, ask questions, and participate in discussions and activities.
+          </p>
+          <a href="https://discord.gg/duca" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-purple-400 hover:text-purple-300 font-medium transition-colors">
+            Join Discord server &rarr;
+          </a>
+        </div>
+
+        <div class="relative p-8 rounded-2xl theme-card border theme-border text-center hover:border-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-cyan-400">3</span>
+          </div>
+          <h3 class="text-xl font-bold theme-text mb-3">Show Up &amp; Get Involved</h3>
+          <p class="theme-text-secondary">
+            Attend workshops, join a division, compete in CTFs, or just hang out. DUCA is what you make of it - everyone is welcome regardless of experience level.
+          </p>
+          <a href="/events" class="inline-block mt-4 text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+            Browse events &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- What You Get -->
+      <div class="mt-16 p-8 rounded-2xl border theme-border" style="background: linear-gradient(135deg, rgba(236,72,153,0.05), rgba(139,92,246,0.05), rgba(6,182,212,0.05));">
+        <h3 class="text-2xl font-bold theme-text mb-6 text-center">What You Get as a Member</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🎓</span>
+            <div>
+              <h4 class="font-semibold theme-text">Workshops & Training</h4>
+              <p class="text-sm theme-text-muted">Hands-on learning in cybersecurity, networking, and development</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🏆</span>
+            <div>
+              <h4 class="font-semibold theme-text">CTF Competitions</h4>
+              <p class="text-sm theme-text-muted">Compete in capture-the-flag events as part of a team</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🤝</span>
+            <div>
+              <h4 class="font-semibold theme-text">Industry Connections</h4>
+              <p class="text-sm theme-text-muted">Network with professionals and explore career opportunities</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🌐</span>
+            <div>
+              <h4 class="font-semibold theme-text">Community</h4>
+              <p class="text-sm theme-text-muted">750+ members who share your passion for cybersecurity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Discord Section -->
+  <section class="py-24 section-themed border-t theme-border">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <WobbleCard

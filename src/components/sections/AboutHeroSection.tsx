@@ -8,9 +8,9 @@ export const AboutHeroSection = () => {
   const words = ["Inspiration", "Innovation", "Inclusivity", "Collaboration", "Development", "Leadership"];
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-black">
+    <section id="about-hero" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden" style={{ background: 'var(--theme-bg)' }}>
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/20 via-black to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/20 via-transparent to-transparent" />
       <SpotlightNew className="-top-40 right-0 md:right-60 md:-top-20" fill="#00d1b7" />
 
       {/* Grid Pattern */}

@@ -76,9 +76,9 @@ export function RetroContactForm() {
       onMouseMove={handleMouseMove}
       className="relative max-w-2xl mx-auto rounded-xl overflow-hidden"
       style={{
-        background: "#0a0a0a",
-        border: "1px solid rgba(51, 255, 51, 0.3)",
-        boxShadow: "0 0 30px rgba(51, 255, 51, 0.1), inset 0 0 30px rgba(0,0,0,0.5)",
+        background: "#0c1220",
+        border: "1px solid rgba(51, 255, 51, 0.25)",
+        boxShadow: "0 0 30px rgba(51, 255, 51, 0.08), inset 0 0 30px rgba(0,0,0,0.3)",
       }}
     >
       {/* CRT Scan Lines Overlay */}
@@ -171,7 +171,7 @@ export function RetroContactForm() {
                 </label>
                 <input
                   type="text"
-                  value="duca@deakin.edu.au"
+                  value="duca@info.au"
                   readOnly
                   className="flex-1 bg-transparent border-b border-green-900/50 py-2 px-1 font-mono text-sm outline-none"
                   style={{ color: "#33ff33", opacity: 0.6 }}

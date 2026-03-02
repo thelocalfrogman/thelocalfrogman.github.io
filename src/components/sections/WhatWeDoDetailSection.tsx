@@ -58,7 +58,7 @@ const content = [
 
 export const WhatWeDoDetailSection = () => {
   return (
-    <section className="py-24 bg-black">
+    <section className="py-24 section-themed">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
           What We Do

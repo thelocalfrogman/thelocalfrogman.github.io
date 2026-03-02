@@ -7,16 +7,16 @@ import { Button, GlowingButton } from "@ui/button";
 
 export const HeroSection = () => {
   const words = [
-    { text: "Deakin" },
-    { text: "University" },
-    { text: "Cybersecurity" },
+    { text: "Deakin", className: "text-white" },
+    { text: "University", className: "text-white" },
+    { text: "Cybersecurity", className: "text-white" },
     { text: "Association", className: "text-purple-500" },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--theme-bg)' }}>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-transparent" />
       <SpotlightNew
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="#d648ff"
