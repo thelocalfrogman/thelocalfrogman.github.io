@@ -39,6 +39,7 @@ const formatTime = (dateStr: string) => {
 
 export function EventTagFilter({ events, tags }: EventTagFilterProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
@@ -46,16 +47,32 @@ export function EventTagFilter({ events, tags }: EventTagFilterProps) {
     );
   };
 
-  const clearTags = () => setSelectedTags([]);
+  const clearTags = () => {
+    setSelectedTags([]);
+    setSearchQuery("");
+  };
 
   const now = new Date();
 
   const filteredEvents = useMemo(() => {
-    if (selectedTags.length === 0) return events;
-    return events.filter((event) =>
-      event.tags?.some((tag) => selectedTags.includes(tag))
-    );
-  }, [events, selectedTags]);
+    let filtered = events;
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((event) =>
+        event.tags?.some((tag) => selectedTags.includes(tag))
+      );
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(q) ||
+          event.description.toLowerCase().includes(q) ||
+          event.location.toLowerCase().includes(q) ||
+          event.tags?.some((tag) => tag.toLowerCase().includes(q))
+      );
+    }
+    return filtered;
+  }, [events, selectedTags, searchQuery]);
 
   const upcomingEvents = filteredEvents
     .filter((e) => new Date(e.eventDate) >= now)
@@ -67,12 +84,48 @@ export function EventTagFilter({ events, tags }: EventTagFilterProps) {
 
   return (
     <div>
+      {/* Search Bar */}
+      <div className="max-w-xl mx-auto mb-6">
+        <div className="relative">
+          <svg
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search events..."
+            className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-900/60 border border-gray-700/50 text-white placeholder:text-gray-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/30 transition-all font-mono text-sm"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Tag Filter Chips */}
       <div className="flex flex-wrap gap-2 mb-8 justify-center">
         <button
           onClick={clearTags}
           className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-            selectedTags.length === 0
+            selectedTags.length === 0 && !searchQuery
               ? "bg-orange-600 text-white shadow-lg shadow-orange-600/30"
               : "bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20"
           }`}
@@ -169,8 +222,8 @@ export function EventTagFilter({ events, tags }: EventTagFilterProps) {
       {upcomingEvents.length === 0 && (
         <div className="text-center py-12 mb-16">
           <p className="text-gray-400 text-lg">
-            {selectedTags.length > 0
-              ? "No upcoming events match the selected tags."
+            {selectedTags.length > 0 || searchQuery
+              ? "No upcoming events match your search."
               : "No upcoming events at the moment. Check back soon!"}
           </p>
         </div>

@@ -49,15 +49,15 @@ const serializedEvents = allEvents.map((event) => ({
   </section>
 
   <!-- Events with Tag Filtering -->
-  <section class="py-24 section-themed">
-    <div class="container mx-auto px-4">
+  <section class="py-24 section-themed relative overflow-hidden data-stream-bg">
+    <div class="container mx-auto px-4 relative z-10">
       <EventTagFilter events={serializedEvents} tags={allTags} client:load />
     </div>
   </section>
 
   <!-- CTA - Glow Ring Discord -->
-  <section class="py-24 section-themed">
-    <div class="container mx-auto px-4 text-center">
+  <section class="py-24 section-themed relative overflow-hidden data-stream-bg">
+    <div class="container mx-auto px-4 text-center relative z-10">
       <div class="max-w-2xl mx-auto p-12 rounded-2xl border-2 border-purple-500/30 animate-pulse-glow bg-gradient-to-br from-purple-900/20 to-black">
         <h2 class="text-3xl md:text-4xl font-bold theme-text mb-6">
           Want to stay updated?

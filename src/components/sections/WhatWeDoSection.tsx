@@ -76,7 +76,7 @@ const features = [
 
 export const WhatWeDoSection = () => {
   return (
-    <section id="what-we-do" className="py-24 section-themed relative">
+    <section id="what-we-do" className="py-24 section-themed relative overflow-hidden data-stream-bg">
       <div className="container mx-auto px-4">
         <SectionHeading
           title="What we do"

@@ -64,7 +64,7 @@ export const StatsSection = ({
   memberCount?: number;
 }) => {
   return (
-    <section className="py-24 section-themed relative">
+    <section className="py-24 section-themed relative overflow-hidden data-stream-bg">
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">

@@ -5,7 +5,7 @@ import { Button } from "@ui/button";
 
 export const DiscordCTASection = () => {
   return (
-    <section className="py-24 section-themed">
+    <section className="py-24 section-themed relative overflow-hidden data-stream-bg">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Discord Card - Large */}

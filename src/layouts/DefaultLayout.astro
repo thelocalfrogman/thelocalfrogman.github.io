@@ -4,6 +4,7 @@ import '../assets/scss/index.scss'
 import SiteMeta from '@components/SiteMeta.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
+import AmbientBackground from '@components/AmbientBackground.astro'
 import { ClientRouter } from 'astro:transitions'
 
 const {
@@ -30,11 +31,31 @@ const {
     <ClientRouter />
   </head>
   <body>
+    <AmbientBackground />
     <Header />
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>
     <Footer />
+    <script>
+      // Smooth momentum scroll - creates a buttery scroll feel
+      document.addEventListener('astro:page-load', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        // Apply scroll-driven reveal animations to sections
+        const sections = document.querySelectorAll('section, [class*="section-themed"]');
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('section-visible');
+              }
+            });
+          },
+          { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
+        );
+        sections.forEach((s) => observer.observe(s));
+      });
+    </script>
     <script>
       // Click particle explosion effect
       document.addEventListener('click', (e) => {
@@ -94,6 +115,14 @@ const {
         a {
           @include text-decoration(transparent, var(--foreground-color), 4px, 2px);
         }
+      }
+
+      // Section reveal animation on scroll
+      section,
+      [class*="section-themed"] {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       }
     </style>
   </body>
