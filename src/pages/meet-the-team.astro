@@ -16,7 +16,6 @@ const divisions = [
   {
     name: "Development Division",
     description: "We make cool software for the club! Whether you're new to coding or already building things, we'll work together, learn together, and create useful tools for everyone.",
-    details: "In the Development Division, we build all sorts of fun and helpful projects — websites, bots, scripts, challenge platforms, and anything else the club needs. We love working together, sharing ideas, and helping each other learn new coding tricks. You don't need to be experienced at all — if you're curious about coding, we'll help you get started in a friendly, no-stress way! Our team is super supportive, and there's always something interesting to work on. If you enjoy creating things or want to get better at programming with friends, we'd be thrilled to have you join us!",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -28,7 +27,6 @@ const divisions = [
   {
     name: "Penetration Testing Division",
     description: "We explore ethical hacking in a safe, friendly space! Together, we learn how attackers think — and how to stop them — through fun, guided activities.",
-    details: "In the Pentesting Division, we explore the world of ethical hacking — always safely and responsibly! We learn things like scanning for weaknesses, testing vulnerabilities, and understanding how systems can be protected. Everything is taught in a supportive, hands-on way, so beginners never feel lost. We use cool tools like Kali Linux and Burp Suite, but we take our time and help each other along the way. If you're curious about hacking, security, or just enjoy learning how things work under the hood, come join us! We promise it's friendly, fun, and full of \"whoa!\" moments.",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -40,7 +38,6 @@ const divisions = [
   {
     name: "Networking Division",
     description: "We dig into how the internet actually works! Through fun, hands-on activities, we learn how devices connect, talk, and stay secure — together!",
-    details: "In the Networking Division, we explore all the moving parts that make the internet tick. We use tools like Wireshark, set up mini networks, and look at how data travels behind the scenes. Don't worry if you're new — we explain everything in a super friendly, down-to-earth way. It's a great space to experiment, ask curious questions, and build practical skills you can use anywhere in tech. If you've ever wondered \"How does this even work?\" or want to learn something cool with a supportive group, we'd love for you to join our networking adventures!",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -52,7 +49,6 @@ const divisions = [
   {
     name: "Cyber Essentials Division",
     description: "We introduce everyone to the basics of cybersecurity in a super friendly, beginner-friendly way — perfect for easing into the tech world without feeling overwhelmed!",
-    details: "The Cyber Essentials Division is where we take things slow, keep things simple, and build confidence step by step. We teach beginner topics like passwords, safe browsing, common threats, and basic defensive skills — all explained clearly and without any jargon. Whether you're brand new to cybersecurity or just want to fill in some knowledge gaps, we've got your back! Our sessions are relaxed and welcoming, and you can ask as many questions as you like. We'd love to help you get comfortable with the basics and support you as you explore the rest of the club.",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -64,7 +60,6 @@ const divisions = [
   {
     name: "Capture The Flag Division",
     description: "We're all about solving fun cybersecurity puzzles together! We learn heaps, celebrate progress, and help each other crack challenges in a relaxed, supportive environment.",
-    details: "In the Capture the Flag Division, we explore cybersecurity by doing hands-on challenges as a team — no pressure, no expectations, just learning and fun! We look at things like decoding secret messages, investigating strange files, poking at websites, and solving clever puzzles. Our sessions are very welcoming, and we make sure beginners feel right at home. We also join online CTF competitions together, which is always a super fun team experience. If you love puzzles, enjoy figuring things out, or just want to learn cybersecurity in a playful, friendly way, come hang out with us!",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -76,7 +71,6 @@ const divisions = [
   {
     name: "Remote Events Division",
     description: "We make sure everyone can join in the fun from anywhere! We host online workshops, games, streams, and events so no one ever feels left out.",
-    details: "In the Remote Events Division, we keep the club connected no matter where people are. We run online workshops, livestreams, remote CTFs, guest talk sessions, and even chill virtual hangouts. Our goal is to make everything feel easy, accessible, and welcoming for all members — on-campus or not! If you like planning events, helping people feel included, or experimenting with fun online formats, we'd be so happy to have you on the team. Whether you're coordinating activities or just bringing good vibes, you'll help make the club a warm and connected community.",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -88,7 +82,6 @@ const divisions = [
   {
     name: "Advertising Division",
     description: "We're the team that makes everything look fun and exciting! We spread the word about our events, projects, and wins so everyone feels welcome and included.",
-    details: "In the Advertising Division, we love bringing the club's personality to life! We design posters, write easy-to-read announcements, and create social media posts that help everyone feel connected and excited about what's coming up. We work with other divisions to make sure everyone's hard work gets the spotlight it deserves. You don't need to be a design pro — just someone who enjoys being creative and helping the club feel warm and inviting. If you like making things look awesome or enjoy sharing good vibes with others, we'd be so happy to have you join us!",
     members: [
       { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
       { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
@@ -137,18 +130,6 @@ const divisions = [
           subtitle={division.description}
           client:visible
         />
-
-        <details class="mt-6 mb-10 max-w-3xl mx-auto group">
-          <summary class="cursor-pointer text-purple-400 hover:text-purple-300 transition-colors font-medium flex items-center gap-2">
-            <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-            What We Do
-          </summary>
-          <p class="mt-4 text-gray-400 leading-relaxed">
-            {division.details}
-          </p>
-        </details>
 
         <TeamGrid members={division.members} className="mt-8" client:visible />
       </div>
