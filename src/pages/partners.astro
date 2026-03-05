@@ -71,10 +71,11 @@ const sponsorBenefits = [
       <div></div>
     </AuroraBackground>
 
-    <div class="relative z-10 container mx-auto px-4 py-20 text-center">
-      <!-- ASCII Art -->
-      <div class="ascii-art-container select-none mx-auto mb-8 hidden md:block" aria-hidden="true">
-        <pre class="font-mono text-sm leading-tight ascii-glow inline-block text-left"><span class="text-amber-400/70">┌──────────────┐
+    <div class="relative z-10 container mx-auto px-4 py-20 flex flex-col items-center">
+      <div class="flex items-center gap-8 md:gap-12">
+        <!-- ASCII Art - Left Side -->
+        <div class="hidden md:block ascii-art-container select-none shrink-0" aria-hidden="true">
+          <pre class="font-mono text-sm leading-tight ascii-glow text-left"><span class="text-amber-400/70">┌──────────────┐
 │ ╔═══════════╗│
 │ ║  DUCA.sec  ║│
 │ ╚═══════════╝│
@@ -88,20 +89,23 @@ const sponsorBenefits = [
 │ └────────────┘│
 │  [====]  ◉◉◉  │
 └──────────────┘</span></pre>
-        <pre class="font-mono text-xs leading-tight mt-3 ascii-pulse"><span class="text-amber-500/40">STATUS: SEEKING ALLIES ███████░░ LINK: ACTIVE ●</span></pre>
-      </div>
+          <pre class="font-mono text-xs leading-tight mt-3 ascii-pulse text-left"><span class="text-amber-500/40">STATUS: SEEKING
+ALLIES ███████░░
+LINK: ACTIVE ●</span></pre>
+        </div>
 
-      <!-- Title + Description -->
-      <div>
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-8">
-          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Partners & Sponsors</span>
-        </h1>
-        <div class="max-w-3xl mx-auto">
-          <TextGenerateEffect
-            words="Partner with DUCA to connect with Australia's next generation of cybersecurity talent. Together, we're building a safer digital future."
-            className="text-xl md:text-2xl text-gray-300"
-            client:visible
-          />
+        <!-- Title + Description -->
+        <div class="text-center md:text-left">
+          <h1 class="text-5xl md:text-7xl font-bold text-white mb-8">
+            <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Partners & Sponsors</span>
+          </h1>
+          <div class="max-w-3xl">
+            <TextGenerateEffect
+              words="Partner with DUCA to connect with Australia's next generation of cybersecurity talent. Together, we're building a safer digital future."
+              className="text-xl md:text-2xl text-gray-300"
+              client:visible
+            />
+          </div>
         </div>
       </div>
     </div>
