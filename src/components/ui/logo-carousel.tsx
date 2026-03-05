@@ -61,7 +61,7 @@ export const LogoCarousel = ({
             href={partner.href ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(214,72,255,0.5)]"
+            className="flex-shrink-0 transition-all duration-300 opacity-70 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(214,72,255,0.5)] px-4"
           >
             <img
               src={partner.logo}
@@ -142,7 +142,7 @@ export const InfiniteLogoCarousel = ({
             <img
               src={partner.logo}
               alt={partner.name}
-              className="h-16 w-auto object-contain transition-all duration-300 hover:brightness-125"
+              className="h-16 w-auto object-contain transition-all duration-300 brightness-0 invert hover:brightness-125"
             />
           </a>
         ))}

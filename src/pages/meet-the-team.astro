@@ -1,455 +1,168 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import PageHeader from '@components/PageHeader.astro'
-import { Accordion, AccordionItem, Avatar, AvatarGroup, Heading } from 'accessible-astro-components'
+import { SectionHeading } from '@components/ui/section-heading'
+import { TeamGrid } from '@components/ui/team-card'
+import { AuroraBackground } from '@components/ui/aurora-background'
+
+const executives = [
+  { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#", bio: "" },
+  { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#", bio: "" },
+  { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#", bio: "" },
+  { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#", bio: "" },
+  { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#", bio: "" },
+]
+
+const divisions = [
+  {
+    name: "Development Division",
+    description: "We make cool software for the club! Whether you're new to coding or already building things, we'll work together, learn together, and create useful tools for everyone.",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Penetration Testing Division",
+    description: "We explore ethical hacking in a safe, friendly space! Together, we learn how attackers think — and how to stop them — through fun, guided activities.",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Networking Division",
+    description: "We dig into how the internet actually works! Through fun, hands-on activities, we learn how devices connect, talk, and stay secure — together!",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Cyber Essentials Division",
+    description: "We introduce everyone to the basics of cybersecurity in a super friendly, beginner-friendly way — perfect for easing into the tech world without feeling overwhelmed!",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Capture The Flag Division",
+    description: "We're all about solving fun cybersecurity puzzles together! We learn heaps, celebrate progress, and help each other crack challenges in a relaxed, supportive environment.",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Remote Events Division",
+    description: "We make sure everyone can join in the fun from anywhere! We host online workshops, games, streams, and events so no one ever feels left out.",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+  {
+    name: "Advertising Division",
+    description: "We're the team that makes everything look fun and exciting! We spread the word about our events, projects, and wins so everyone feels welcome and included.",
+    members: [
+      { name: "Bojack Horseman", role: "Team Lead", image: "", linkedIn: "#" },
+      { name: "Diane Nguyen", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Lisa Simpson", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Dr. Heinz Doofenshmirtz", role: "Team Member", image: "", linkedIn: "#" },
+      { name: "Courage the Cowardly Dog", role: "Team Member", image: "", linkedIn: "#" },
+    ],
+  },
+]
 ---
 
 <DefaultLayout title="Meet The Team">
-    <PageHeader
-        title="Meet The Team"
-        subtitle="We’re a bunch of curious, passionate people building a welcoming space for everyone — come see what we get up to!"
-    />
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
+    <AuroraBackground className="absolute inset-0 !h-full" showRadialGradient={false} client:load>
+      <div></div>
+    </AuroraBackground>
+    <div class="absolute inset-0 z-10 flex items-center justify-center px-4 py-20">
+      <div class="text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
+          <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Meet The Team</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+          We're a bunch of curious, passionate people building a welcoming space for everyone — come see what we get up to!
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Executives -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Executives</Heading>
-        <AvatarGroup display="grid" gridItemsSize="300px" gridGap="2.5rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
+  <!-- Executives -->
+  <section class="py-24 section-themed">
+    <div class="container mx-auto px-4">
+      <SectionHeading
+        title="Executives"
+        subtitle="The leadership team driving DUCA forward"
+        client:visible
+      />
+      <TeamGrid members={executives} className="mt-12" client:visible />
+    </div>
+  </section>
 
-    <!-- Penetration Testing Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-4">Penetration Testing Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 italic">
-                We explore ethical hacking in a safe, friendly space! Together, we learn how attackers think — and how
-                to stop them — through fun, guided activities.
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Pentesting Division, we explore the world of ethical hacking — always safely and responsibly!
-                    We learn things like scanning for weaknesses, testing vulnerabilities, and understanding how systems
-                    can be protected. Everything is taught in a supportive, hands-on way, so beginners never feel lost.
-                    We use cool tools like Kali Linux and Burp Suite, but we take our time and help each other along the
-                    way. If you’re curious about hacking, security, or just enjoy learning how things work under the
-                    hood, come join us! We promise it’s friendly, fun, and full of “whoa!” moments.
-                </p>
-            </AccordionItem>
-        </Accordion>
-        <AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
+  <!-- Divisions -->
+  {divisions.map((division, divIdx) => (
+    <section class={`py-20 section-themed ${divIdx % 2 === 0 ? 'border-t border-purple-500/10' : 'border-t border-slate-700/30'}`}>
+      <div class="container mx-auto px-4">
+        <SectionHeading
+          title={division.name}
+          subtitle={division.description}
+          client:visible
+        />
 
-    <!-- Networking Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Networking Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We dig into how the internet actually works! Through fun, hands-on activities, we learn how devices
-                connect, talk, and stay secure — together!
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Networking Division, we explore all the moving parts that make the internet tick. We use
-                    tools like Wireshark, set up mini networks, and look at how data travels behind the scenes. Don’t
-                    worry if you’re new — we explain everything in a super friendly, down-to-earth way. It’s a great
-                    space to experiment, ask curious questions, and build practical skills you can use anywhere in tech.
-                    If you've ever wondered “How does this even work?” or want to learn something cool with a supportive
-                    group, we’d love for you to join our networking adventures!
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
+        <TeamGrid members={division.members} className="mt-8" client:visible />
+      </div>
     </section>
+  ))}
 
-    <!-- Cyber Essentials Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Cyber Essentials Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We introduce everyone to the basics of cybersecurity in a super friendly, beginner‑friendly way —
-                perfect for easing into the tech world without feeling overwhelmed!
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    The Cyber Essentials Division is where we take things slow, keep things simple, and build confidence
-                    step by step. We teach beginner topics like passwords, safe browsing, common threats, and basic
-                    defensive skills — all explained clearly and without any jargon. Whether you're brand new to
-                    cybersecurity or just want to fill in some knowledge gaps, we’ve got your back! Our sessions are
-                    relaxed and welcoming, and you can ask as many questions as you like. We’d love to help you get
-                    comfortable with the basics and support you as you explore the rest of the club.
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
-
-    <!-- Capture The Flag Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Capture The Flag Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We’re all about solving fun cybersecurity puzzles together! We learn heaps, celebrate progress, and help
-                each other crack challenges in a relaxed, supportive environment.
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Capture the Flag Division, we explore cybersecurity by doing hands-on challenges as a team —
-                    no pressure, no expectations, just learning and fun! We look at things like decoding secret
-                    messages, investigating strange files, poking at websites, and solving clever puzzles. Our sessions
-                    are very welcoming, and we make sure beginners feel right at home. We also join online CTF
-                    competitions together, which is always a super fun team experience. If you love puzzles, enjoy
-                    figuring things out, or just want to learn cybersecurity in a playful, friendly way, come hang out
-                    with us!
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
-
-    <!-- Development Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Development Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We make cool software for the club! Whether you're new to coding or already building things, we’ll work
-                together, learn together, and create useful tools for everyone.
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Development Division, we build all sorts of fun and helpful projects — websites, bots,
-                    scripts, challenge platforms, and anything else the club needs. We love working together, sharing
-                    ideas, and helping each other learn new coding tricks. You don’t need to be experienced at all — if
-                    you’re curious about coding, we’ll help you get started in a friendly, no-stress way! Our team is
-                    super supportive, and there’s always something interesting to work on. If you enjoy creating things
-                    or want to get better at programming with friends, we’d be thrilled to have you join us!
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
-
-    <!-- Remote Events Division -->
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Remote Events Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We make sure everyone can join in the fun from anywhere! We host online workshops, games, streams, and
-                events so no one ever feels left out.
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Remote Events Division, we keep the club connected no matter where people are. We run online
-                    workshops, livestreams, remote CTFs, guest talk sessions, and even chill virtual hangouts. Our goal
-                    is to make everything feel easy, accessible, and welcoming for all members — on‑campus or not! If
-                    you like planning events, helping people feel included, or experimenting with fun online formats,
-                    we’d be so happy to have you on the team. Whether you’re coordinating activities or just bringing
-                    good vibes, you’ll help make the club a warm and connected community.
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-
-        <!-- Advertising Division -->
-    </section>
-    <section class="container mb-24">
-        <Heading level="h2" class="mb-7">Advertising Division</Heading>
-        <Accordion class="mb-6">
-            <p class="mb-2 text-xl italic">
-                We’re the team that makes everything look fun and exciting! We spread the word about our events,
-                projects, and wins so everyone feels welcome and included.
-            </p>
-            <AccordionItem title="What We Do" variant="chevron">
-                <p>
-                    In the Advertising Division, we love bringing the club’s personality to life! We design posters,
-                    write easy-to-read announcements, and create social media posts that help everyone feel connected
-                    and excited about what’s coming up. We work with other divisions to make sure everyone’s hard work
-                    gets the spotlight it deserves. You don’t need to be a design pro — just someone who enjoys being
-                    creative and helping the club feel warm and inviting. If you like making things look awesome or
-                    enjoy sharing good vibes with others, we'd be so happy to have you join us!
-                </p>
-            </AccordionItem>
-        </Accordion><AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Bojack Horseman"
-                subtitle="Team Lead"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Diane Nguyen"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Lisa Simpson"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Dr. Heinz Doofenshmirtz"
-                subtitle="Team Member"
-            />
-            <Avatar
-                class="transition-transform hover:-translate-y-1"
-                size="200px"
-                img=""
-                title="Courage the Cowardly Dog"
-                subtitle="Team Member"
-            />
-        </AvatarGroup>
-    </section>
+  <!-- CTA -->
+  <section class="py-24 section-themed relative overflow-hidden data-stream-bg border-t border-purple-500/10">
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Want to join the team?
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+        We're always looking for passionate people to help grow DUCA. Whether you want to lead, build, hack, or create — there's a place for you.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="https://dusa.org.au/clubs/duca"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-colors"
+        >
+          Join via DUSA
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-purple-500 text-white font-semibold hover:bg-purple-500/10 transition-colors"
+        >
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
 </DefaultLayout>
