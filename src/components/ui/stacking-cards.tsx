@@ -22,7 +22,7 @@ export const StackingCards = ({
   const [containerHeight, setContainerHeight] = useState(0);
 
   useEffect(() => {
-    const height = cards.length * 35 + 30;
+    const height = cards.length * 30 + 25;
     setContainerHeight(height);
   }, [cards.length]);
 

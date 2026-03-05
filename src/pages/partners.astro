@@ -71,16 +71,42 @@ const sponsorBenefits = [
       <div></div>
     </AuroraBackground>
 
-    <div class="relative z-10 container mx-auto px-4 py-20 text-center">
-      <h1 class="text-5xl md:text-7xl font-bold text-white mb-8">
-        <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Partners & Sponsors</span>
-      </h1>
-      <div class="max-w-3xl mx-auto">
-        <TextGenerateEffect
-          words="Partner with DUCA to connect with Australia's next generation of cybersecurity talent. Together, we're building a safer digital future."
-          className="text-xl md:text-2xl text-gray-300"
-          client:visible
-        />
+    <div class="relative z-10 container mx-auto px-4 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-12 items-center">
+        <!-- ASCII Art - Left Side -->
+        <div class="hidden md:block ascii-art-container select-none" aria-hidden="true">
+          <pre class="font-mono text-sm leading-tight ascii-glow"><span class="text-amber-400/70">    ┌──────────────┐
+    │ ╔═══════════╗│
+    │ ║  DUCA.sec  ║│
+    │ ╚═══════════╝│
+    │  ┌─┐  ┌───┐  │
+    │  │&gt;│  │ $ │  │
+    │  └─┘  └───┘  │
+    │ ┌────────────┐│
+    │ │ &gt; partner  ││
+    │ │ &gt; connect  ││
+    │ │ &gt; build_   ││
+    │ └────────────┘│
+    │  [====]  ◉◉◉  │
+    └──────────────┘</span></pre>
+          <pre class="font-mono text-xs leading-tight mt-3 ascii-pulse"><span class="text-amber-500/40">   STATUS: SEEKING
+   ALLIES ███████░░
+   LINK: ACTIVE ●</span></pre>
+        </div>
+
+        <!-- Title + Description - Right Side -->
+        <div class="text-center md:text-left">
+          <h1 class="text-5xl md:text-7xl font-bold text-white mb-8">
+            <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Partners & Sponsors</span>
+          </h1>
+          <div class="max-w-3xl">
+            <TextGenerateEffect
+              words="Partner with DUCA to connect with Australia's next generation of cybersecurity talent. Together, we're building a safer digital future."
+              className="text-xl md:text-2xl text-gray-300"
+              client:visible
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -237,5 +263,34 @@ const sponsorBenefits = [
   }
   .partner-logo-wrap:hover img {
     animation: logo-bounce 0.5s ease;
+  }
+
+  /* ASCII art glow and animations */
+  .ascii-art-container {
+    min-width: 200px;
+  }
+  .ascii-glow {
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.3), 0 0 20px rgba(245, 158, 11, 0.1);
+    animation: ascii-flicker 4s ease-in-out infinite;
+  }
+  .ascii-pulse {
+    animation: ascii-blink 2s ease-in-out infinite;
+  }
+  @keyframes ascii-flicker {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+    73% { opacity: 0.75; }
+    74% { opacity: 0.95; }
+  }
+  @keyframes ascii-blink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ascii-glow,
+    .ascii-pulse {
+      animation: none;
+    }
   }
 </style>

@@ -65,8 +65,11 @@ export function RetroContactForm() {
   const [pongVisible, setPongVisible] = useState(false);
   const [sentPhase, setSentPhase] = useState<"matrix" | "flash" | "message">("matrix");
   const [containerSize, setContainerSize] = useState({ w: 600, h: 400 });
+  const [flyingPlane, setFlyingPlane] = useState(false);
+  const [planeStart, setPlaneStart] = useState({ x: 0, y: 0 });
   const formRef = useRef<HTMLFormElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Easter egg: type "ping" in message → show "PONG!"
   useEffect(() => {
@@ -115,6 +118,13 @@ export function RetroContactForm() {
     if (!name || !email || !message) return;
 
     setFormState("sending");
+
+    // Start flying plane animation from button position
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setPlaneStart({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+      setFlyingPlane(true);
+    }
 
     try {
       const response = await fetch("https://formspree.io/f/FORMSPREE_ID_HERE", {
@@ -376,6 +386,7 @@ export function RetroContactForm() {
               {/* TRANSMIT button */}
               <div className="flex justify-end pt-4">
                 <button
+                  ref={buttonRef}
                   type="submit"
                   disabled={formState === "sending"}
                   className="relative flex items-center gap-3 px-6 py-3 rounded-lg font-mono text-sm font-bold transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
@@ -385,20 +396,9 @@ export function RetroContactForm() {
                     boxShadow: "0 0 15px rgba(51,255,51,0.3)",
                   }}
                 >
-                  {formState === "sending" ? (
-                    <motion.span
-                      animate={!reducedMotion ? { x: [0, 200], y: [0, -100], opacity: [1, 0], rotate: [0, -30] } : {}}
-                      transition={{ duration: 0.8, ease: "easeIn" }}
-                    >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                      </svg>
-                    </motion.span>
-                  ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                    </svg>
-                  )}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: formState === "sending" ? 0 : 1 }}>
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                  </svg>
                   <span>TRANSMIT</span>
                 </button>
               </div>
@@ -406,6 +406,71 @@ export function RetroContactForm() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Full-screen flying paper plane */}
+      <AnimatePresence>
+        {flyingPlane && !reducedMotion && (
+          <motion.div
+            key="flying-plane"
+            initial={{
+              position: "fixed",
+              left: planeStart.x,
+              top: planeStart.y,
+              scale: 1,
+              rotate: 0,
+              opacity: 1,
+              zIndex: 9999,
+              pointerEvents: "none" as const,
+            }}
+            animate={{
+              left: typeof window !== "undefined" ? window.innerWidth + 100 : 1500,
+              top: typeof window !== "undefined" ? -100 : -100,
+              scale: [1, 2, 2.5, 2, 0.5],
+              rotate: [0, -15, -25, -35, -45],
+              opacity: [1, 1, 1, 0.8, 0],
+            }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
+            onAnimationComplete={() => setFlyingPlane(false)}
+            style={{ position: "fixed", zIndex: 9999, pointerEvents: "none" }}
+          >
+            <svg
+              width="60"
+              height="60"
+              viewBox="0 0 24 24"
+              fill="#33ff33"
+              style={{
+                filter: "drop-shadow(0 0 20px rgba(51,255,51,0.8)) drop-shadow(0 0 40px rgba(51,255,51,0.4))",
+              }}
+            >
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+            {/* Trail particles */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0.6 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full"
+                  style={{
+                    width: 4 - i * 0.5,
+                    height: 4 - i * 0.5,
+                    background: "#33ff33",
+                    left: -(10 + i * 15),
+                    top: 25 + (i % 2 === 0 ? -3 : 3),
+                    boxShadow: "0 0 6px rgba(51,255,51,0.6)",
+                  }}
+                  animate={{ opacity: [0.8, 0] }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

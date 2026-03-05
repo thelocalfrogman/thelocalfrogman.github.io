@@ -10,19 +10,31 @@ import BlogPreviewSection from '@components/sections/BlogPreviewSection'
 import FeaturedEventsSection from '@components/sections/FeaturedEventsSection'
 import { getCollection } from 'astro:content'
 
+// Pre-import all blog images using glob pattern
+const blogImages = import.meta.glob('../content/blog/**/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' })
+
 // Fetch latest blog posts
 const allPosts = await getCollection('blog')
 const sortedPosts = allPosts
   .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
   .slice(0, 5)
 
-const blogPosts = sortedPosts.map((post) => ({
-  title: post.data.title,
-  description: post.data.description,
-  href: `/blog/${post.data.slug || post.id}`,
-  image: post.data.featuredImage,
-  category: post.data.tags?.[0] || 'Blog',
-}))
+const blogPosts = sortedPosts.map((post) => {
+  let image: string | undefined
+  if (post.data.featuredImage) {
+    const imageFileName = post.data.featuredImage.replace(/^\.\//, '')
+    const imageKey = `../content/blog/${post.data.slug}/${imageFileName}`
+    const resolved = blogImages[imageKey] as any
+    image = typeof resolved === 'string' ? resolved : resolved?.src
+  }
+  return {
+    title: post.data.title,
+    description: post.data.description,
+    href: `/blog/${post.data.slug || post.id}`,
+    image,
+    category: post.data.tags?.[0] || 'Blog',
+  }
+})
 
 // Fetch upcoming events (featured ones for homepage)
 const allEvents = await getCollection('events')

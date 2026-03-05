@@ -64,10 +64,10 @@ export const WhatWeDoStackingSection = () => {
         />
       </div>
 
-      <StackingCards cards={whatWeDoCards} className="mt-12" />
+      <StackingCards cards={whatWeDoCards} className="mt-8" />
 
       {/* Bottom CTA */}
-      <div className="container mx-auto px-4 pb-24">
+      <div className="container mx-auto px-4 pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
