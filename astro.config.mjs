@@ -94,7 +94,7 @@ if (isWorkspace) {
 export default defineConfig({
     compressHTML: true,
     site: 'https://thelocalfrogman.github.io',
-    base: '/duca-site-test',
+    base: '/',
     trailingSlash: 'ignore',
     integrations: [compress(), icon(), mdx(), sitemap(), react()],
     vite: viteConfig,
