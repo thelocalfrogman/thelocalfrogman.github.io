@@ -93,8 +93,8 @@ if (isWorkspace) {
 // https://astro.build/config
 export default defineConfig({
     compressHTML: true,
-    site: 'https://duca-club.github.io',
-    base: '/',
+    site: 'https://thelocalfrogman.github.io',
+    base: '/duca-site-test',
     trailingSlash: 'ignore',
     integrations: [compress(), icon(), mdx(), sitemap(), react()],
     vite: viteConfig,
